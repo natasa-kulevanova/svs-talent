@@ -13,20 +13,6 @@ public class ShoppingCart {
 		shoppingList.add(p);
 	}
 	
-	//displays all products from shoppingCart with the total cost
-	public void displayCart() {
-		if(shoppingList.isEmpty()){
-			System.out.println("Empty!");
-		}
-		else {
-			for(int i = 0; i < shoppingList.size(); i++){
-				System.out.println((shoppingList.get(i).name)+" quantity: "+(shoppingList.get(i).quantity)+
-						" price: "+shoppingList.get(i).price);
-			}
-			totalPrice = totalCost();
-		}
-		System.out.println("Total cost: "+totalPrice+"$");
-	}
 	
 	//calculates the total cost from the shoppingCart
 	public int totalCost(){

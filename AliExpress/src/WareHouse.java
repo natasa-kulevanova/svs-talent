@@ -10,50 +10,23 @@ public class WareHouse {
 	public ArrayList<Product> productList = new ArrayList<Product>();
 	
 	public WareHouse(String str){
-		StringTokenizer st;
-		try{
-			FileReader file = new FileReader(str);
-			BufferedReader buff = new BufferedReader(file);
-			boolean eof = false;
-			while(!eof){
-				String line = buff.readLine();
-				if(line == null){
-					eof = true;
-				}
-				else{
-					st = new StringTokenizer(line, "|");
-					String key = st.nextToken();
-					String name = st.nextToken();
-					int price = Integer.parseInt(st.nextToken());
-					int quantity = Integer.parseInt(st.nextToken());
-					Product product = new Product(key, name, price, quantity);
-					productList.add(product);
-					
-				}
-			}
-			buff.close();
-		} catch(IOException e){
-			e.printStackTrace();
-		}
+		productList = ProductParser.readProducts(str);
 	}
 	
 	//checks if name and quantity of the product are valid
-	public int checkProduct(String purchase){
+	public int checkProduct(String name, int quantity){
 		int status = 0;
-		StringTokenizer st = new StringTokenizer(purchase, "|");
-		String purchaseProduct = st.nextToken();
-		int purchaseQuantity = Integer.parseInt(st.nextToken());	
 		for(int p = 0; p < productList.size(); p++){
-			if(productList.get(p).name.equals(purchaseProduct))
+			if(productList.get(p).name.equals(name))
 			{
-				if(productList.get(p).quantity >= purchaseQuantity){
+				if(productList.get(p).quantity >= quantity){
 					//product name and quantity are valid
 					//purchase is performed
 					 status = 1;
-					 removeFromStock(purchaseProduct, purchaseQuantity);
+					 removeFromStock(name, quantity);
 					 break;
 				}
-				else if(productList.get(p).quantity < purchaseQuantity){
+				else if(productList.get(p).quantity < quantity){
 					//product quantity not valid
 					status = 3;
 					break;
@@ -76,14 +49,11 @@ public class WareHouse {
 	}
 	
 	//returns the purchased product that needs to be added to shoppingCart
-	public Product returnProduct(String order){
+	public Product getProduct(String nameS, int quantityS){
 		Product product = null;
-		StringTokenizer st = new StringTokenizer(order,"|");
-		String cartProduct = st.nextToken();
-		int cartQuantity = Integer.parseInt(st.nextToken());
 		for(Product p : productList){
-			if(p.name.equals(cartProduct)){
-				product = new Product(p.key, cartProduct, p.price, cartQuantity);
+			if(p.name.equals(nameS)){
+				product = new Product(p.key, nameS, p.price, quantityS);
 				return product;
 			}
 		}
