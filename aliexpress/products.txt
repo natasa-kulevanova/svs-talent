@@ -1,0 +1,5 @@
+1|Bag|25|10
+2|Book|10|22
+3|Earrings|12|5
+4|Shoes|30|20
+5|Phone case|5|15
