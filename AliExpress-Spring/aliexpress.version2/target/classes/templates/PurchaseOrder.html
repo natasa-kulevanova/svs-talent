@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<table>
+    <tr th:each="product : ${products}">
+        <td><a th:href="@{/productpurchase/{name}(name=${product.name})}">Add to cart</a></td>
+        <td> | </td>
+        <td th:text="${product.name}">Name</td>
+        <td> | </td>
+        <td th:text="${product.price}">Title</td>
+    </tr>
+</table>
+<form action="#" th:action="@{/productpurchase}" method="post">
+    <input type="hidden" name="name"/>
+    <input type="text" name="quantity"/>
+    <br/>
+    <input type="submit" value="Add to cart"/>
+</form>
+<form action="#" th:action="@{/productpurchase/checkout}" method="post">
+    <input type="text" name="email"/>
+    <input type="text" name="password"/>
+    <br/>
+    <input type="submit" value="Check out"/>
+</form>
+
+
+</body>
+</html>
